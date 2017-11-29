@@ -7,7 +7,7 @@ import Parser from './parser';
 import Promise from 'bluebird';
 import Requester from './requester';
 import _ from 'lodash';
-import debugnyan from 'debugnyan';
+// import debugnyan from 'debugnyan';
 import methods from './methods';
 import requestLogger from './logging/request-logger';
 import semver from 'semver';
@@ -48,7 +48,6 @@ class Client {
     agentOptions,
     headers = false,
     host = 'localhost',
-    logger = debugnyan('bitcoin-core'),
     network = 'mainnet',
     password,
     port,
@@ -96,7 +95,7 @@ class Client {
         .value();
     }
 
-    const request = requestLogger(logger);
+    const request = requestLogger();
 
     this.request = Promise.promisifyAll(request.defaults({
       agentOptions: this.agentOptions,
