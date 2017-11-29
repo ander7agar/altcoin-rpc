@@ -1,14 +1,14 @@
 # altcoin-rpc
-A modern Alrcoin Core REST and RPC client to execute administrative tasks, wallet operations and queries about network and the blockchain.
+A modern Altcoin Core REST and RPC client to execute administrative tasks, wallet operations and queries about network and the blockchain.
 
 ## Status
-[![npm version][npm-image]][npm-url] [![build status][travis-image]][travis-url]
+[![npm version][npm-image]][npm-url] 
 
 ## Installation
 Install the package via `npm`:
 
 ```sh
-npm install bitcoin-core --save
+npm install altcoin-rpc --save
 ```
 
 ## Usage
@@ -32,7 +32,7 @@ npm install bitcoin-core --save
 The `network` will automatically determine the port to connect to, just like the `bitcoind` and `bitcoin-cli` commands.
 
 ```js
-const Client = require('bitcoin-core');
+const Client = require('altcoin-rpc');
 const client = new Client({ network: 'regtest' });
 ```
 
@@ -79,7 +79,7 @@ client.getInfo((error, help) => console.log(help));
 ```
 
 #### Returning headers in the response
-For compatibility with other Alrcoin Core clients.
+For compatibility with other Altcoin Core clients.
 
 ```js
 const client = new Client({ headers: true });
@@ -150,7 +150,7 @@ To avoid potential issues with prototype references, all methods are still enume
 Start the `bitcoind` with the RPC server enabled and optionally configure a username and password:
 
 ```sh
-docker run --rm -it ruimarinho/bitcoin-core:0.12-alpine -printtoconsole -rpcuser=foo -rpcpassword=bar -server
+docker run --rm -it ruimarinho/altcoin-rpc:0.12-alpine -printtoconsole -rpcuser=foo -rpcpassword=bar -server
 ```
 
 These configuration values may also be set on the `bitcoin.conf` file of your platform installation.
@@ -162,7 +162,7 @@ The RPC services binds to the localhost loopback network interface, so use `rpcb
 #### Methods
 All RPC [methods](src/methods.js) are exposed on the client interface as a camelcase'd version of those available on `bitcoind`.
 
-For a more complete reference about which methods are available, check the [RPC documentation](https://bitcoin.org/en/developer-reference#remote-procedure-calls-rpcs) on the [Alrcoin Core Developer Reference website](https://bitcoin.org/en/developer-reference).
+For a more complete reference about which methods are available, check the [RPC documentation](https://bitcoin.org/en/developer-reference#remote-procedure-calls-rpcs) on the [Altcoin Core Developer Reference website](https://bitcoin.org/en/developer-reference).
 
 ##### Examples
 
@@ -207,7 +207,7 @@ Error handling is still fragile so avoid passing user input.
 Start the `bitcoind` with the REST server enabled:
 
 ```sh
-docker run --rm -it ruimarinho/bitcoin-core:0.12-alpine -printtoconsole -server -rest
+docker run --rm -it ruimarinho/altcoin-rpc:0.12-alpine -printtoconsole -server -rest
 ```
 
 These configuration values may also be set on the `bitcoin.conf` file of your platform installation. Use `txindex=1` if you'd like to enable full transaction query support (note: this will take a considerable amount of time on the first run).
@@ -333,13 +333,13 @@ openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 3650 -nod
 ```
 
 #### Connecting via SSL
-On Alrcoin Core <0.12, you can start the `bitcoind` RPC server directly with SSL:
+On Altcoin Core <0.12, you can start the `bitcoind` RPC server directly with SSL:
 
 ```sh
-docker run --rm -it -v $(PWD)/ssl:/etc/ssl ruimarinho/bitcoin-core:0.11-alpine -printtoconsole -rpcuser=foo -rpcpassword=bar -rpcssl -rpcsslcertificatechainfile=/etc/ssl/bitcoind/cert.pem -rpcsslprivatekeyfile=/etc/ssl/bitcoind/key.pem -server
+docker run --rm -it -v $(PWD)/ssl:/etc/ssl ruimarinho/altcoin-rpc:0.11-alpine -printtoconsole -rpcuser=foo -rpcpassword=bar -rpcssl -rpcsslcertificatechainfile=/etc/ssl/bitcoind/cert.pem -rpcsslprivatekeyfile=/etc/ssl/bitcoind/key.pem -server
 ```
 
-On Alrcoin Core >0.12, use must use `stunnel` (`brew install stunnel` or `sudo apt-get install stunnel4`) or an HTTPS reverse proxy to configure SSL since the built-in support for SSL has been removed. The trade off with `stunnel` is performance and simplicity versus features, as it lacks more powerful capacities such as Basic Authentication and caching which are standard in reverse proxies.
+On Altcoin Core >0.12, use must use `stunnel` (`brew install stunnel` or `sudo apt-get install stunnel4`) or an HTTPS reverse proxy to configure SSL since the built-in support for SSL has been removed. The trade off with `stunnel` is performance and simplicity versus features, as it lacks more powerful capacities such as Basic Authentication and caching which are standard in reverse proxies.
 
 You can use `stunnel` by configuring `stunnel.conf` with the following service requirements:
 
@@ -362,7 +362,7 @@ stunnel -d 28332 -r 127.0.0.1:18332 -p stunnel.pem -P ''
 Then pass the public certificate to the client:
 
 ```js
-const Client = require('bitcoin-core');
+const Client = require('altcoin-rpc');
 const fs = require('fs');
 const client = new Client({
   agentOptions: {
@@ -375,13 +375,13 @@ const client = new Client({
 
 ## Logging
 
-By default, all requests made with `bitcoin-core` are logged using [uphold/debugnyan](https://github.com/uphold/debugnyan) with `bitcoin-core` as the logging namespace.
+By default, all requests made with `altcoin-rpc` are logged using [uphold/debugnyan](https://github.com/uphold/debugnyan) with `altcoin-rpc` as the logging namespace.
 
 Please note that all sensitive data is obfuscated before calling the logger.
 
 #### Example
 
-Example output defining the environment variable `DEBUG=bitcoin-core`:
+Example output defining the environment variable `DEBUG=altcoin-rpc`:
 
 ```javascript
 const client = new Client();
@@ -389,7 +389,7 @@ const client = new Client();
 client.getTransactionByHash('b4dd08f32be15d96b7166fd77afd18aece7480f72af6c9c7f9c5cbeb01e686fe');
 
 // {
-//   "name": "bitcoin-core",
+//   "name": "altcoin-rpc",
 //   "hostname": "localhost",
 //   "pid": 57908,
 //   "level": 20,
@@ -438,7 +438,5 @@ npm version [<newversion> | major | minor | patch] -m "Release %s"
 ## License
 MIT
 
-[npm-image]: https://img.shields.io/npm/v/bitcoin-core.svg?style=flat-square
-[npm-url]: https://npmjs.org/package/bitcoin-core
-[travis-image]: https://img.shields.io/travis/ruimarinho/bitcoin-core.svg?style=flat-square
-[travis-url]: https://travis-ci.org/ruimarinho/bitcoin-core
+[npm-image]: https://img.shields.io/npm/v/altcoin-rpc.svg?style=flat-square
+[npm-url]: https://npmjs.org/package/altcoin-rpc
