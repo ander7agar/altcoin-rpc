@@ -13,8 +13,6 @@ var _requester = _interopRequireDefault(require("./requester"));
 
 var _lodash = _interopRequireDefault(require("lodash"));
 
-var _debugnyan = _interopRequireDefault(require("debugnyan"));
-
 var _methods = _interopRequireDefault(require("./methods"));
 
 var _requestLogger = _interopRequireDefault(require("./logging/request-logger"));
@@ -26,6 +24,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 /**
  * Module dependencies.
  */
+// import debugnyan from 'debugnyan';
 
 /**
  * Source arguments to find out if a callback has been passed.
@@ -61,7 +60,6 @@ class Client {
     agentOptions,
     headers = false,
     host = 'localhost',
-    logger = (0, _debugnyan.default)('bitcoin-core'),
     network = 'mainnet',
     password,
     port,
@@ -110,7 +108,7 @@ class Client {
       unsupported = _lodash.default.chain(_methods.default).pickBy(method => !_semver.default.satisfies(version, method.version)).keys().invokeMap(String.prototype.toLowerCase).value();
     }
 
-    const request = (0, _requestLogger.default)(logger);
+    const request = (0, _requestLogger.default)();
     this.request = _bluebird.default.promisifyAll(request.defaults({
       agentOptions: this.agentOptions,
       baseUrl: `${this.ssl.enabled ? 'https' : 'http'}://${this.host}:${this.port}`,

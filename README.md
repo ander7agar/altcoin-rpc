@@ -1,5 +1,5 @@
-# bitcoin-core
-A modern Bitcoin Core REST and RPC client to execute administrative tasks, wallet operations and queries about network and the blockchain.
+# altcoin-rpc
+A modern Alrcoin Core REST and RPC client to execute administrative tasks, wallet operations and queries about network and the blockchain.
 
 ## Status
 [![npm version][npm-image]][npm-url] [![build status][travis-image]][travis-url]
@@ -17,7 +17,6 @@ npm install bitcoin-core --save
 1. `[agentOptions]` _(Object)_: Optional `agent` [options](https://github.com/request/request#using-optionsagentoptions) to configure SSL/TLS.
 2. `[headers=false]` _(boolean)_: Whether to return the response headers.
 3. `[host=localhost]` _(string)_: The host to connect to.
-4. `[logger=debugnyan('bitcoin-core')]` _(Function)_: Custom logger (by default, `debugnyan`).
 5. `[network=mainnet]` _(string)_: The network
 6. `[password]` _(string)_: The RPC server user password.
 7. `[port=[network]]` _(string)_: The RPC server port.
@@ -80,7 +79,7 @@ client.getInfo((error, help) => console.log(help));
 ```
 
 #### Returning headers in the response
-For compatibility with other Bitcoin Core clients.
+For compatibility with other Alrcoin Core clients.
 
 ```js
 const client = new Client({ headers: true });
@@ -163,7 +162,7 @@ The RPC services binds to the localhost loopback network interface, so use `rpcb
 #### Methods
 All RPC [methods](src/methods.js) are exposed on the client interface as a camelcase'd version of those available on `bitcoind`.
 
-For a more complete reference about which methods are available, check the [RPC documentation](https://bitcoin.org/en/developer-reference#remote-procedure-calls-rpcs) on the [Bitcoin Core Developer Reference website](https://bitcoin.org/en/developer-reference).
+For a more complete reference about which methods are available, check the [RPC documentation](https://bitcoin.org/en/developer-reference#remote-procedure-calls-rpcs) on the [Alrcoin Core Developer Reference website](https://bitcoin.org/en/developer-reference).
 
 ##### Examples
 
@@ -334,13 +333,13 @@ openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 3650 -nod
 ```
 
 #### Connecting via SSL
-On Bitcoin Core <0.12, you can start the `bitcoind` RPC server directly with SSL:
+On Alrcoin Core <0.12, you can start the `bitcoind` RPC server directly with SSL:
 
 ```sh
 docker run --rm -it -v $(PWD)/ssl:/etc/ssl ruimarinho/bitcoin-core:0.11-alpine -printtoconsole -rpcuser=foo -rpcpassword=bar -rpcssl -rpcsslcertificatechainfile=/etc/ssl/bitcoind/cert.pem -rpcsslprivatekeyfile=/etc/ssl/bitcoind/key.pem -server
 ```
 
-On Bitcoin Core >0.12, use must use `stunnel` (`brew install stunnel` or `sudo apt-get install stunnel4`) or an HTTPS reverse proxy to configure SSL since the built-in support for SSL has been removed. The trade off with `stunnel` is performance and simplicity versus features, as it lacks more powerful capacities such as Basic Authentication and caching which are standard in reverse proxies.
+On Alrcoin Core >0.12, use must use `stunnel` (`brew install stunnel` or `sudo apt-get install stunnel4`) or an HTTPS reverse proxy to configure SSL since the built-in support for SSL has been removed. The trade off with `stunnel` is performance and simplicity versus features, as it lacks more powerful capacities such as Basic Authentication and caching which are standard in reverse proxies.
 
 You can use `stunnel` by configuring `stunnel.conf` with the following service requirements:
 
